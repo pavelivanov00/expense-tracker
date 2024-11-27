@@ -6,6 +6,7 @@ public class FileHandler {
     public static List<Expense> loadExpenses(String fileName) {
         List<Expense> expenses = new ArrayList<>();
         File file = new File(fileName);
+        int maxId = 0;
 
         if (!file.exists()) {
             System.out.println("File not found. Starting with an empty expense list.");
@@ -16,12 +17,20 @@ public class FileHandler {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] fields = line.split(",");
-                double amount = Double.parseDouble(fields[0]);
-                String category = fields[1];
-                String date = fields[2];
-                String description = fields.length > 3 ? fields[3] : "";
-                expenses.add(new Expense(amount, category, date, description));
+                int id = Integer.parseInt(fields[0]);
+                double amount = Double.parseDouble(fields[1]);
+                String category = fields[2];
+                String date = fields[3];
+                String description = fields.length > 4 ? fields[4] : "";
+
+                expenses.add(new Expense(id, amount, category, date, description));
+
+                if (id > maxId) {
+                    maxId = id;
+                }
             }
+
+            Expense.setIdCounter(maxId);
             System.out.println("Loaded " + expenses.size() + " expenses from file.");
         } catch (IOException e) {
             System.err.println("Error loading expenses: " + e.getMessage());
@@ -33,6 +42,7 @@ public class FileHandler {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             for (Expense expense : expenses) {
                 String line = String.join(",",
+                        String.valueOf(expense.getId()),
                         String.valueOf(expense.getAmount()),
                         expense.getCategory(),
                         expense.getDate(),

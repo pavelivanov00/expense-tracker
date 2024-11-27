@@ -17,6 +17,17 @@ public class ExpenseManager {
     }
 
     public void setExpenses(List<Expense> expenses) { this.expenses = expenses; }
+
+    public boolean removeExpenseById(int id) {
+        for (Expense expense : expenses) {
+            if (expense.getId() == id) {
+                expenses.remove(expense);
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
 
 

@@ -21,7 +21,8 @@ public class Main {
             System.out.println("\nPlease choose an option:");
             System.out.println("   1. Add Expense");
             System.out.println("   2. View Expenses");
-            System.out.println("   3. Exit");
+            System.out.println("   3. Delete Expense");
+            System.out.println("   4. Exit");
             System.out.println("Your choice: ");
             int choice = scanner.nextInt();
             scanner.nextLine();
@@ -50,7 +51,8 @@ public class Main {
                 case 2: {
                     System.out.println("Current Expenses:");
                     for (Expense expense : manager.getExpenses()) {
-                        String output = expense.getDate() + ": " +
+                        String output = "ID:"+expense.getId() + " - " +
+                                expense.getDate() + " - " +
                                 expense.getAmount() + " - " +
                                 expense.getCategory() + " (" +
                                 expense.getDescription() + ")";
@@ -59,10 +61,25 @@ public class Main {
                     break;
                 }
                 case 3: {
+                    System.out.print("Enter the ID of the expense to delete: ");
+                    int idToDelete = scanner.nextInt();
+                    scanner.nextLine();
+
+                    boolean removed = manager.removeExpenseById(idToDelete);
+                    if (removed) {
+                        FileHandler.saveExpenses(manager.getExpenses(), FILE_NAME);
+                        System.out.println("Expense deleted successfully.");
+                    } else {
+                        System.out.println("No expense found with ID: " + idToDelete);
+                    }
+                    break;
+                }
+                case 4: {
                     System.out.println("Exiting. Goodbye!");
                     running = false;
                     break;
                 }
+
                 default: System.out.println("Invalid choice. Please try again.");
                 break;
             }
