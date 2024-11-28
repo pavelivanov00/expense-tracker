@@ -65,10 +65,9 @@ public class Main {
                     int idToDelete = scanner.nextInt();
                     scanner.nextLine();
 
-                    boolean removed = manager.removeExpenseById(idToDelete);
+                    boolean removed = manager.deleteExpenseById(idToDelete);
                     if (removed) {
                         FileHandler.saveExpenses(manager.getExpenses(), FILE_NAME);
-                        System.out.println("Expense deleted successfully.");
                     } else {
                         System.out.println("No expense found with ID: " + idToDelete);
                     }

@@ -16,11 +16,21 @@ public class ExpenseManager {
         return expenses;
     }
 
-    public void setExpenses(List<Expense> expenses) { this.expenses = expenses; }
+    public void setExpenses(List<Expense> expenses) {
+        this.expenses = expenses;
+    }
 
-    public boolean removeExpenseById(int id) {
+    public boolean deleteExpenseById(int id) {
         for (Expense expense : expenses) {
             if (expense.getId() == id) {
+                String output = "Deleted expense:\n" +
+                        "ID:" + expense.getId() + " - " +
+                        expense.getDate() + " - " +
+                        expense.getAmount() + " - " +
+                        expense.getCategory() + " (" +
+                        expense.getDescription() + ")";
+                System.out.println(output);
+
                 expenses.remove(expense);
                 return true;
             }

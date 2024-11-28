@@ -50,7 +50,7 @@ public class FileHandler {
                 writer.write(line);
                 writer.newLine();
             }
-            System.out.println("Expenses saved to " + fileName);
+            System.out.println("Expenses updated successfully");
         } catch (IOException e) {
             System.err.println("Error saving expenses: " + e.getMessage());
         }
