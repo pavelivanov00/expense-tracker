@@ -46,6 +46,7 @@ public class Main {
                     manager.addExpense(newExpense);
                     FileHandler.saveExpenses(manager.getExpenses(), FILE_NAME);
                     System.out.println("Expense added and saved: " + newExpense.getCategory() + " - " + newExpense.getAmount());
+                    pause(scanner);
                     break;
                 }
                 case 2: {
@@ -58,6 +59,7 @@ public class Main {
                                 expense.getDescription() + ")";
                         System.out.println(output);
                     }
+                    pause(scanner);
                     break;
                 }
                 case 3: {
@@ -71,6 +73,7 @@ public class Main {
                     } else {
                         System.out.println("No expense found with ID: " + idToDelete);
                     }
+                    pause(scanner);
                     break;
                 }
                 case 4: {
@@ -79,10 +82,18 @@ public class Main {
                     break;
                 }
 
-                default: System.out.println("Invalid choice. Please try again.");
-                break;
+                default: {
+                    System.out.println("Invalid choice. Please try again.");
+                    pause(scanner);
+                    break;
+                }
             }
         }
         scanner.close();
+    }
+
+    private static void pause(Scanner scanner) {
+        System.out.println("\nPress Enter to continue...");
+        scanner.nextLine();
     }
 }
